@@ -3,7 +3,7 @@ import java.util.regex.Pattern;
 
 public class Mail {
     public static String checkWithRegExp(String userMailString){
-        Pattern p = Pattern.compile("[a-z\\d]*[@][a-z\\d]*[.][(com)(ru)]");
+        Pattern p = Pattern.compile("[a-z\\d]*[@][a-z\\d]*[.][a-z]{2,3}");
         Matcher m = p.matcher(userMailString);
         String resultMail;
         String leftMail="";
@@ -22,7 +22,7 @@ public class Mail {
             }
 
 
-            Pattern prb = Pattern.compile("[@]([a-z\\d]*)[.]*[(com)(ru)]$");
+            Pattern prb = Pattern.compile("[@]([a-z\\d]*)[.]*[a-z\\d]{2,3}$");
             Matcher mrb = prb.matcher(userMailString);
             if(mrb.find())
             {
@@ -30,7 +30,7 @@ public class Mail {
             }
 
 
-            Pattern pra = Pattern.compile("([.][(com)(ru)]$)");
+            Pattern pra = Pattern.compile("([.][a-z\\d]{2,3}$)");
             Matcher mra = pra.matcher(userMailString);
             if(mra.find())
             {
