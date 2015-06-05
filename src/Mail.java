@@ -1,0 +1,48 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Mail {
+    public static String checkWithRegExp(String userMailString){
+        Pattern p = Pattern.compile("[a-z\\d]*[@][a-z\\d]*[.][(com)(ru)]");
+        Matcher m = p.matcher(userMailString);
+        String resultMail;
+        String leftMail="";
+        String rightBefPoi="";
+        String rightAftPoi="";
+        if(m.matches())
+        {
+            resultMail=userMailString;
+        }
+        else {
+            Pattern pl = Pattern.compile("^([a-z\\d]*[@])");
+            Matcher ml = pl.matcher(userMailString);
+            if(ml.find())
+            {
+                leftMail+=ml.group();
+            }
+
+
+            Pattern prb = Pattern.compile("[@]([a-z\\d]*)[.]*[(com)(ru)]$");
+            Matcher mrb = prb.matcher(userMailString);
+            if(mrb.find())
+            {
+                rightBefPoi+=mrb.group(1);
+            }
+
+
+            Pattern pra = Pattern.compile("([.][(com)(ru)]$)");
+            Matcher mra = pra.matcher(userMailString);
+            if(mra.find())
+            {
+                rightAftPoi+=mra.group();
+            }
+            if(rightAftPoi.equals("") || rightBefPoi.equals("") || leftMail.equals(""))
+            {resultMail="";}
+            else
+            {resultMail=leftMail+rightBefPoi+rightAftPoi;}
+
+        }
+
+        return resultMail;
+    }
+}
